@@ -170,20 +170,19 @@ namespace OpenStack.Swift
 			}
 			if (full_listing)
 			{
-			    do
+				bool processContainer = true;
+				do
 				{
 					var nmarker = containers.Count - 1;
 					query["marker"] = containers[nmarker]["name"];
 					var tmp = GetAccount(url, token, headers, query, false);
-				    if ((tmp.Containers).Count > 0)
+					processContainer = ( (tmp.Containers).Count > 0 );
+				    if ( processContainer)
 					{
 						containers.AddRange(tmp.Containers);
 					}
-					else
-					{
-						break;
-					}
-				} while (true);
+	
+				} while (processContainer);
 				
 			}
 			response.Close();
@@ -462,6 +461,7 @@ namespace OpenStack.Swift
             headers["X-Auth-Token"] = token;
 			IHttpRequest request = _http_factory.GetHttpRequest("GET", url + '/' + _encode(container) + '/' + _encode(name), headers, query);
 			IHttpResponse response = request.GetResponse();
+			response.Close();
 			return new ObjectResponse(response.Headers, response.Reason, response.Status, response.ResponseStream);
 		}
 		/// <summary>
