@@ -6,20 +6,8 @@ namespace OpenStack.Swift
 	/// <summary>
 	/// An Object that holds auth information
 	/// </summary>
-	public class AuthResponse 
+	public class AuthResponse : BaseResponse
 	{
-		/// <summary>
-		/// response headers.
-		/// </summary>
-		public readonly Dictionary<string, string> Headers;
-		/// <summary>
-		/// response status from the server.
-		/// </summary>
-		public readonly int Status;
-		/// <summary>
-		/// The status description from the server.
-		/// </summary>
-		public readonly string Reason;
 
 	    /// <summary>
 	    /// Initializes a new instance of the <see><cref>Openstack.Swift.AuthResponse</cref></see> class.
@@ -33,12 +21,10 @@ namespace OpenStack.Swift
 	    /// <param name='status'>
 	    /// Response status from the server.
 	    /// </param>
-	    public AuthResponse(Dictionary<string, string> headers, string reason, int status) 
+	    public AuthResponse(Dictionary<string, string> headers, string reason, int status) :
+			base(headers, status, reason)
 			       
 		{
-			Headers = headers;
-			Status = status;
-			Reason = reason;
 		}
 	}
 }
