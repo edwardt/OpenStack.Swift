@@ -1,4 +1,4 @@
-namespace OpenStack.Nova
+namespace OpenStack.Swift
 {
 	using System;
 	using System.Collections.Generic;
@@ -6,7 +6,7 @@ namespace OpenStack.Nova
 	/// <summary>
 	/// An Object that holds auth information
 	/// </summary>
-	public class AuthResponse
+	public class AuthResponse : BaseResponse
 	{
 		/// <summary>
 		/// response headers.
@@ -33,7 +33,8 @@ namespace OpenStack.Nova
 	    /// <param name='status'>
 	    /// Response status from the server.
 	    /// </param>
-	    public AuthResponse(Dictionary<string, string> headers, string reason, int status)
+	    public AuthResponse(Dictionary<string, string> headers, string reason, int status) : 
+			            base(headers,reason,status)
 		{
 			Headers = headers;
 			Status = status;
